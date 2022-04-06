@@ -22,8 +22,6 @@ options.add_argument("--disable-extensions")
 # options.headless = True
 driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
 driver.get("https://www.nytimes.com/games/wordle/index.html")
-driver.implicitly_wait(20)
-print(driver.title)
-elements = driver.find_element_by_css_selector("game-app")
-print(f"Thing:: {elements}")
+element = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, "game-app")))
+print(f"Thing:: {element}")
 ```

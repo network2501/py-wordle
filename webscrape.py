@@ -1,24 +1,26 @@
-import imp
 import logging
-from time import sleep
 from typing import final
-from xml.dom.minidom import Element
+
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
+
+
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.common.by import By
+
 
 logging.basicConfig(level=logging.DEBUG)
 
-options = Options()
-# options.headless = True
-options.add_argument("--disable-extensions")
-driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
-driver.get("https://www.nytimes.com/games/wordle/index.html")
-driver.implicitly_wait(20)
-print(driver.title)
-elements = driver.find_element_by_css_selector("game-app")
-print(f"Thing:: {elements}")
+driver = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
+
+# driver.get("https://www.nytimes.com/games/wordle/index.html")
+# print(driver.title)
+
+# element = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, "game-app")))
+# print(driver.title)
+# elements = driver.find_element_by_css_selector("game-app")
+# print(f"Thing:: {elements}")
